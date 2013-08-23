@@ -3,6 +3,7 @@ require_relative 'game'
 require_relative 'player'
 require_relative 'computer_player'
 require_relative 'test_helpers'
+require_relative 'game_tree'
 
 # This file is used to test during development without using a framework such as RSPEC
 
@@ -94,9 +95,19 @@ def test(type)
 
 		# NEXT THING TO TEST
 		
+		# Test GameNode class
+		sample_game = helper.create_sample_game(player, computer_player)
+		sample_game.last_player = player
 
+		root = GameTree.new(nil, sample_game)
+		root.create_game_tree(0)
 
+		all_nodes = root.traverse_tree
+		puts "There are #{all_nodes.length} nodes."
 
+		all_nodes.each do |node|
+			output.display_board(node.game)
+		end
 	else
 		puts "Enter a valid test-type."
 	end

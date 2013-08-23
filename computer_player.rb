@@ -10,6 +10,7 @@ class ComputerPlayer < Player
 		else
 			@piece = "X"
 		end
+		@type = "computer"
 	end
 
 	def set_difficulty
@@ -25,6 +26,11 @@ class ComputerPlayer < Player
 			puts "Invalid input."
 			set_difficulty
 		end
+	end
+
+	def choose_move(game_tree)
+		# Write code to traverse game tree and choose the next best move
+		# Sample heuristic - three in a row, 2 in a row with open spaces, etc.
 	end
 end
 

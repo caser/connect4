@@ -4,6 +4,8 @@ class Board
 	attr_accessor :player1
 	attr_accessor :player2
 	attr_accessor :last_move
+	attr_accessor :last_player
+	attr_accessor :current_player
 
 	def initialize(player1, player2)
 		@player1 = player1
@@ -17,20 +19,23 @@ class Board
 		@last_move = []
 		@move_hash= {}
 
-		@next_player = player2
+		@current_player = player1
 	end
 
 	def place_move(move, player)
 		piece = player.piece
 		placed = false
-		column = (move - 1).to_i
+		column = move - 1
 		6.times do |i|
-			index = (5 - i).to_i
+			index = 5 - i
 			if @board_array[index][column] == " "
 				@board_array[index][column] = piece
 				indices = [i + 1, column + 1]
 				move_hash[indices] = piece
 				@last_move = [indices, piece]
+				@last_player = player
+				# Set current player
+				@current_player = player == player1 ? player2 : player1
 				placed = true
 				break
 			else
