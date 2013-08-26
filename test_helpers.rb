@@ -1,3 +1,5 @@
+require_relative 'game'
+
 class TestHelpers
 	def create_sample_board_array
 		sample_board_array = []
@@ -16,5 +18,21 @@ class TestHelpers
 			sample_board_array.push(row)
 		end
 		sample_board_array
+	end
+
+	def create_sample_game(player1, player2)
+		game = Board.new(player1, player2)
+		counter = 1
+		player = player1
+		(1..14).each do |x|
+			if x % 2 == 0
+				player = player1
+			else
+				player = player2
+			end
+			num = rand(7) + 1
+			game.place_move(num, player)
+		end
+		return game
 	end
 end

@@ -1,4 +1,6 @@
 require_relative 'game'
+require_relative 'output_writer'
+require_relative 'deep_clone'
 
 class GameTree
 	attr_accessor :parent
@@ -7,10 +9,12 @@ class GameTree
 	attr_accessor :first_sibling
 	attr_accessor :depth
 	attr_accessor :player
+	attr_accessor :output
 
 	def initialize(parent = nil, game = nil)
 		@parent = parent
 		@game = game
+		@output = OutputWriter.new
 		@first_child = nil
 		@first_sibling = nil
 	end
@@ -73,7 +77,7 @@ class GameTree
 	def create_game_tree(depth)
 		@player = @game.current_player
 
-		game_states = create_duplicate_states(@game, 7)
+		game_states = create_duplicate_states(7)
 		game_states.each_with_index do |game_state, index|
 			move = index + 1
 			game_state.place_move(move, @player)
@@ -91,10 +95,11 @@ class GameTree
 		end
 	end
 
-	def create_duplicate_states(game, number)
+	def create_duplicate_states(number)
 		states = []
 		number.times do
-			states.push(game.clone)
+			duplicate_game_state = @game.deep_clone
+			states.push(duplicate_game_state)
 		end
 		return states
 	end

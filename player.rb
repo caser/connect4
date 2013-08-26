@@ -1,8 +1,10 @@
 class Player
 	attr_accessor :piece
+	attr_accessor :type
 
 	def initialize
 		@piece = "X"
+		@type = "human"
 	end
 
 	def pick_piece

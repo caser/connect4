@@ -85,6 +85,23 @@ def test(type)
 		output.display_board(game)
 		puts "Game over! #{game.last_move[1]} has won!"		
 
+		# Test GameTree class
+		sample_game = helper.create_sample_game(player, computer_player)
+		sample_game.last_player = player
+		puts "Sample game is: \n"
+		output.display_board(sample_game)
+		puts "Last player is: #{sample_game.last_player} and current player is: #{sample_game.current_player}"
+		puts "Original move is: #{sample_game.last_move}"
+
+		root = GameTree.new(nil, sample_game)
+		root.create_game_tree(2)
+
+		puts "There are #{all_nodes.length} nodes."
+		all_nodes.each do |node|
+			puts "Last move is: #{node.game.last_move}"
+			puts "Last piece is #{node.game.last_player.piece}"
+		end
+
 
 	elsif test_type == "new"
 		output = OutputWriter.new
@@ -95,19 +112,21 @@ def test(type)
 
 		# NEXT THING TO TEST
 		
-		# Test GameNode class
+		# Test Choose Move method
 		sample_game = helper.create_sample_game(player, computer_player)
 		sample_game.last_player = player
+		puts "Sample game is: \n"
+		output.display_board(sample_game)
+		puts "Last player is: #{sample_game.last_player} and current player is: #{sample_game.current_player}"
+		puts "Original move is: #{sample_game.last_move}"
 
 		root = GameTree.new(nil, sample_game)
-		root.create_game_tree(0)
+		game_tree = root.create_game_tree(1)
 
-		all_nodes = root.traverse_tree
-		puts "There are #{all_nodes.length} nodes."
+		computer_player.choose_move(game_tree)
 
-		all_nodes.each do |node|
-			output.display_board(node.game)
-		end
+
+		
 	else
 		puts "Enter a valid test-type."
 	end
