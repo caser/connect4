@@ -113,17 +113,23 @@ def test(type)
 		# NEXT THING TO TEST
 		
 		# Test Choose Move method
-		sample_game = helper.create_sample_game(player, computer_player)
-		sample_game.last_player = player
-		puts "Sample game is: \n"
-		output.display_board(sample_game)
-		puts "Last player is: #{sample_game.last_player} and current player is: #{sample_game.current_player}"
-		puts "Original move is: #{sample_game.last_move}"
+		10.times do
+			sample_game = helper.create_sample_game(player, computer_player)
+			sample_game.last_player = player
+			output.display_board(sample_game)
+			# puts "Last player is: #{sample_game.last_player} and current player is: #{sample_game.current_player}"
+			# puts "Original move is: #{sample_game.last_move}"
 
-		root = GameTree.new(nil, sample_game)
-		game_tree = root.create_game_tree(1)
+			player_threes, computer_player_threes = sample_game.count_open_threes
+			puts "There are #{player_threes} open #{player.piece} threes."
+			puts "There are #{computer_player_threes} open #{computer_player.piece} threes." 
+		end
 
-		computer_player.choose_move(game_tree)
+
+		# root = GameTree.new(nil, sample_game)
+		# game_tree = root.create_game_tree(1)
+
+		# computer_player.choose_move(game_tree)
 
 
 		
