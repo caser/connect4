@@ -102,7 +102,7 @@ class Board
 		pos = count_diagonal_pos(move)
 		neg = count_diagonal_neg(move)
 
-		total = pos + neg
+		total = [pos, neg].max
 		return total
 	end
 

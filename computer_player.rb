@@ -56,10 +56,10 @@ class ComputerPlayer < Player
 
 		if side == "COMPUTER"
 			opponent = "HUMAN"
-			best_rank = -20
+			best_rank = -200
 		else
 			opponent = "COMPUTER"
-			best_rank = 20
+			best_rank = 200
 		end
 
 		if first_child == nil
@@ -92,11 +92,11 @@ class ComputerPlayer < Player
 	def rank_state(game_state)
 		rank = 0
 		if game_state.is_winner? && game_state.last_player.type == "computer"
-			rank = 10
+			rank = 100
 			ranked_move = RankedMove.new(game_state.last_move, game_state.last_player, rank)
 			return ranked_move
 		elsif game_state.is_winner? && game_state.last_player.type == "human"
-			rank = -10
+			rank = -100
 			ranked_move = RankedMove.new(game_state.last_move, game_state.last_player, rank)
 			return ranked_move
 		else

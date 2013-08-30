@@ -115,7 +115,7 @@ def test(type)
 			puts "There are #{computer_player_threes} open #{computer_player.piece} threes." 
 		end
 
-		# Test basic Minimax algorithm
+		# Test basic Minimax algorithm (choose_move method)
 		sample_game = helper.create_sample_game(player, computer_player)
 
 		puts "Sample game is: \n"
@@ -141,23 +141,16 @@ def test(type)
 
 		# NEXT THING TO TEST
 
-		# Test basic Minimax algorithm
-		sample_game = helper.create_sample_game(player, computer_player)
-
-		puts "Sample game is: \n"
-		output.display_board(sample_game)
-		puts "Last player is: #{sample_game.last_player} and current player is: #{sample_game.current_player}"
-		puts "Original move is: #{sample_game.last_move}"
-
-		game_tree = GameTree.new(nil, sample_game)
-		# puts "Game tree root node is: \n#{game_tree.game.inspect}"
-		game_tree.create_game_tree(2)
-
-		current_ranked, next_move = computer_player.choose_move(game_tree)
-
-		puts "Next move is: "
-		puts next_move.inspect
-		
+		# Test is_winner? method
+		game_over = false
+		until game_over do
+			output.display_board(game)
+			player_move = player.get_move
+			game.place_move(player_move, player)
+			game_over = game.is_winner?
+		end
+		output.display_board(game)
+		puts "Game over! #{game.last_move[1]} has won!"		
 
 
 		# root = GameTree.new(nil, sample_game)
