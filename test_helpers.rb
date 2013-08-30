@@ -32,6 +32,7 @@ class TestHelpers
 			end
 			num = rand(7) + 1
 			game.place_move(num, player)
+			puts "#{player}  places in column #{num}"
 		end
 		return game
 	end

@@ -98,6 +98,14 @@ class Board
 		end
 	end
 
+	def count_diagonal(move, type = nil)
+		pos = count_diagonal_pos(move)
+		neg = count_diagonal_neg(move)
+
+		total = pos + neg
+		return total
+	end
+
 	def count_diagonal_pos(move, type = nil)
 		count = 1
 

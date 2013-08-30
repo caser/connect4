@@ -102,18 +102,8 @@ def test(type)
 			puts "Last piece is #{node.game.last_player.piece}"
 		end
 
-
-	elsif test_type == "new"
-		output = OutputWriter.new
-		player = Player.new
-		computer_player = ComputerPlayer.new(player.piece)
-		game = Board.new(player, computer_player)
-		helper = TestHelpers.new
-
-		# NEXT THING TO TEST
-		
-		# Test Choose Move method
-		10.times do
+		# Test method which checks for 3 in a row heuristic
+		5.times do
 			sample_game = helper.create_sample_game(player, computer_player)
 			sample_game.last_player = player
 			output.display_board(sample_game)
@@ -124,6 +114,50 @@ def test(type)
 			puts "There are #{player_threes} open #{player.piece} threes."
 			puts "There are #{computer_player_threes} open #{computer_player.piece} threes." 
 		end
+
+		# Test basic Minimax algorithm
+		sample_game = helper.create_sample_game(player, computer_player)
+
+		puts "Sample game is: \n"
+		output.display_board(sample_game)
+		puts "Last player is: #{sample_game.last_player} and current player is: #{sample_game.current_player}"
+		puts "Original move is: #{sample_game.last_move}"
+
+		game_tree = GameTree.new(nil, sample_game)
+		# puts "Game tree root node is: \n#{game_tree.game.inspect}"
+		game_tree.create_game_tree(2)
+
+		current_ranked, next_move = computer_player.choose_move(game_tree)
+
+		puts "Next move is: "
+		puts next_move.inspect
+
+	elsif test_type == "new"
+		output = OutputWriter.new
+		player = Player.new
+		computer_player = ComputerPlayer.new(player.piece)
+		game = Board.new(player, computer_player)
+		helper = TestHelpers.new
+
+		# NEXT THING TO TEST
+
+		# Test basic Minimax algorithm
+		sample_game = helper.create_sample_game(player, computer_player)
+
+		puts "Sample game is: \n"
+		output.display_board(sample_game)
+		puts "Last player is: #{sample_game.last_player} and current player is: #{sample_game.current_player}"
+		puts "Original move is: #{sample_game.last_move}"
+
+		game_tree = GameTree.new(nil, sample_game)
+		# puts "Game tree root node is: \n#{game_tree.game.inspect}"
+		game_tree.create_game_tree(2)
+
+		current_ranked, next_move = computer_player.choose_move(game_tree)
+
+		puts "Next move is: "
+		puts next_move.inspect
+		
 
 
 		# root = GameTree.new(nil, sample_game)
