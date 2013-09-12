@@ -81,11 +81,16 @@ class ComputerPlayer < Player
 					best_reply = ranked_child
 					best_rank = ranked_child.rank
 				end
+				if side == "COMPUTER" && game_state.is_winner?
+					best_rank = 100
+				elsif side == "HUMAN" && game_state.is_winner?
+					best_rank = -100
+				end
 			end
 			ranked_self.rank = best_rank
 			return ranked_self, best_reply
 		end
-			# Should return the best move out of all the game_states in the game_tree
+		# Should return the best move out of all the game_states in the game_tree
 		
 	end
 

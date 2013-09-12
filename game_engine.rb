@@ -27,10 +27,12 @@ output.display_game_instructions
 # Pick 'X' or 'O'
 player = Player.new
 player.pick_piece
+puts "Player type is: #{player.type}"
 
 # Pick level of difficulty of computer player
 # Initialize computer player
 computer_player = ComputerPlayer.new(player.piece)
+puts "Computer player type is: #{computer_player.type}"
 # computer_player.set_difficulty
 
 # Create a game and display empty board with directions for input
@@ -40,6 +42,9 @@ game = Board.new(player, computer_player)
 output.display_input_instructions(game)
 
 game_over = false
+
+puts "Player 1 is #{game.player1}"
+puts "Player 2 is #{game.player2}"
 
 until game_over do
 	# Display the board
@@ -63,10 +68,12 @@ until game_over do
 
 	# Tell computer to calculate next move
 	current_rank, computer_ranked_move = computer_player.choose_move(game_tree)
-	if computer_ranked_move.rank == 0
+	if computer_ranked_move.rank == 0 # 	&& game.move_hash.length < 5
 		computer_move = 2 + rand(3)
+		puts "Computer move is random."
 	else
 		computer_move = computer_ranked_move.move[0][0]
+		puts "Computer move: #{computer_ranked_move.inspect}"
 	end
 	game.place_move(computer_move, computer_player)
 
